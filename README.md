@@ -2,11 +2,11 @@
 
 Create a mini version of the Moneybox app that will allow existing users to login, check their account and add money to their moneybox.
 
-The project currently contains a LoginActivity.kt with 3 EditTexts, a login Button and a lovely animation of an owl that plays on the press of the button.  We want you to implement two additional screens.
+The project currently contains a LoginActivity.kt with 3 EditTexts, a Button and a lovely animation of an owl that plays on the press of the button.  We want you to implement two additional screens.
 
 ## The screens
 
-We now want to give some useful functionality to our users. To allow them to log into the app, view and edit their account using our sandbox API.
+We want to give some useful functionality to our users. To allow them to log into the app, view and edit their account using our sandbox API (See API usage).
 
 ### Screen 1 - User accounts screen
 This screen should be shown after the user has successfully logged in and should show have the following functionality:
@@ -14,7 +14,7 @@ This screen should be shown after the user has successfully logged in and should
 - Show the **'TotalPlanValue'** of a user.
 - Show the accounts the user holds, e.g. ISA, GIA, LISA, Pension.
 - Show all of those account's **'PlanValue'**.
-- Shhow all of those account's **'Moneybox'** total.
+- Show all of those account's **'Moneybox'** total.
 
 ### Screen 2 - Individual account screen
 If a user selects one of those accounts, they should then be taken to this screen.  This screen should have the following functionality:
@@ -43,10 +43,10 @@ Please feel free to modify/refactor the LoginActivity and use any libraries/help
 ## How to Submit your solution:
  - Clone this repository
  - Create a public repo in github, bitbucket or a suitable alternative and provide a link to the repository.
- - Provide a readme in markdown which details how you solved the bugs in part A, and explains the structure of your solution in Part B and any libraries that you may have used.
+ - Provide a readme in markdown with a brief summary of your application.
 
 ## API Usage
-This a brief summary of the api endpoints in the moneybox sandbox environment. There a lot of other additional properties from the json responses that are not relevant, but you must use these endpoints to retrieve the information needed for this application.
+This is a brief summary of the api endpoints in the moneybox sandbox environment. There are a lot of other additional properties from the json responses that are not relevant, but you must use these endpoints to retrieve the information needed for this application.
 
 #### Base URL & Test User
 The base URL for the moneybox sandbox environment is `https://api-test01.moneyboxapp.com/`.
@@ -68,7 +68,7 @@ In order to make requests https must be used and the following headers must be i
 | apiVersion | 3.0.0 |
 
 #### Authentication
-To login with this user to retrieve a bearer token you need to call `POST /users/login`.
+To login with this user and retrieve a bearer token you need to call `POST /users/login`.
 ```
 POST /users/login
 {
