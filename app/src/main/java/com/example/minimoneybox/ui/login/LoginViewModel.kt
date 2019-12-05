@@ -1,7 +1,7 @@
 package com.example.minimoneybox.ui.login
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import com.example.minimoneybox.RxJavaViewModel
 import com.example.minimoneybox.api.ApiFactory
 import com.example.minimoneybox.api.model.LoginRequest
@@ -15,11 +15,22 @@ class LoginViewModel(application: Application) : RxJavaViewModel(application) {
 
     private val loginInfoDao = AppDatabase.get(application.applicationContext).loginInfoDao()
 
-    val email = MutableLiveData<String>()
+    val email = MediatorLiveData<String>()
 
-    val password = MutableLiveData<String>()
+    val password = MediatorLiveData<String>()
 
-    val loginInfo = loginInfoDao.get()
+    init {
+        // Restore any previously cached login information
+        val loginInfo = loginInfoDao.get()
+        email.addSource(loginInfo) {
+            email.value = it.email
+            email.removeSource(loginInfo)
+        }
+        password.addSource(loginInfo) {
+            password.value = it.password
+            password.removeSource(loginInfo)
+        }
+    }
 
     fun login() {
 

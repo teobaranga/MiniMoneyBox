@@ -3,7 +3,6 @@ package com.example.minimoneybox.ui.login
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.example.minimoneybox.R
@@ -36,12 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
                 loginViewModel.login()
             }
-
-            // Restore any previously cached login information
-            loginViewModel.loginInfo.observe(this@LoginActivity, Observer {
-                etEmail.setText(it.email)
-                etPassword.setText(it.password)
-            })
         }
 
     }
