@@ -7,6 +7,14 @@ repositories {
     google()
 }
 
+// local.properties used to store information that should not be checked into VCS
+def localProperties = new Properties().with { prop ->
+    new File("local.properties").withInputStream {
+        prop.load(it)
+    }
+    return prop
+}
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -16,6 +24,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // MoneyBox AppId
+        buildConfigField 'String', "APP_ID", "\"${localProperties["moneybox.appId"]}\""
     }
     buildTypes {
         release {
