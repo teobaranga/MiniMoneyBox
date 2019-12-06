@@ -9,6 +9,9 @@ import androidx.room.Relation
 @Entity
 data class Product(
     @PrimaryKey val id: Long,
+    val planValue: Double,
+    val moneyBox: Double,
+    val name: String,
     val key: String = "products"
 )
 

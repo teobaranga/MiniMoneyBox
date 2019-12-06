@@ -17,6 +17,8 @@
     <string name="user_accounts">User Accounts</string>
     <string name="greeting_name">Hello %s!</string>
     <string name="total_plan_value">Total Plan Value: £%.2f!</string>
+    <string name="plan_value">Plan Value: £%.2f</string>
+    <string name="moneybox">MoneyBox: £%.2f</string>
 
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>

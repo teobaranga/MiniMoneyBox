@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityMainBinding
+import com.example.minimoneybox.ui.account.AccountActivity
 import com.example.minimoneybox.ui.login.LoginActivity
 
 class MainActivity: AppCompatActivity() {
@@ -31,6 +32,15 @@ class MainActivity: AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
+        })
+
+        setupViews()
+    }
+
+    private fun setupViews() {
+        binding.accounts.adapter = AccountsAdapter(click = {
+            val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
         })
     }
 }

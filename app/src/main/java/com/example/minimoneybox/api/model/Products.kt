@@ -1,12 +1,27 @@
 package com.example.minimoneybox.api.model
 
-import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
+data class ProductDetails(
+    @Json(name = "FriendlyName")
+    val name: String
+)
+
+@JsonClass(generateAdapter = true)
 data class Product(
-    @PrimaryKey val Id: Long
+    @Json(name = "Id")
+    val id: Long,
+
+    @Json(name = "PlanValue")
+    val planValue: Double,
+
+    @Json(name = "Moneybox")
+    val moneyBox: Double,
+
+    @Json(name = "Product")
+    val details: ProductDetails
 )
 
 @JsonClass(generateAdapter = true)

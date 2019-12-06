@@ -90,7 +90,9 @@ class LoginViewModel(application: Application) : RxJavaViewModel(application) {
                     }
                     .flatMapCompletable {
                         productsDao.insertProductsData(ProductsData(totalPlanValue = it.totalPlanValue))
-                            .andThen(productsDao.insertProducts(it.products.map { Product(it.Id) }))
+                            .andThen(productsDao.insertProducts(it.products.map {
+                                Product(it.id, it.planValue, it.moneyBox, it.details.name)
+                            }))
                             .doOnComplete {
                                 println("Products saved")
                             }
