@@ -8,7 +8,7 @@ import com.example.minimoneybox.databinding.ItemAccountBinding
 import com.example.minimoneybox.repo.model.Product
 import com.example.minimoneybox.ui.BindableAdapter
 
-class AccountsAdapter(val click: (product: Product?) -> Unit) : RecyclerView.Adapter<AccountsAdapter.ViewHolder>(),
+class AccountsAdapter(val click: (product: Product) -> Unit) : RecyclerView.Adapter<AccountsAdapter.ViewHolder>(),
     BindableAdapter<List<Product>> {
 
     var products = emptyList<Product>()
@@ -38,7 +38,7 @@ class AccountsAdapter(val click: (product: Product?) -> Unit) : RecyclerView.Ada
         }
 
         override fun onClick(v: View?) {
-            click(binding.product)
+            click(binding.product!!)
         }
     }
 }

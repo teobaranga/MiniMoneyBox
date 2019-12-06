@@ -20,6 +20,10 @@
     <string name="plan_value">Plan Value: £%.2f</string>
     <string name="moneybox">MoneyBox: £%.2f</string>
 
+    <!-- Strings related to the account details screen -->
+    <string name="individual_account">Individual Account</string>
+    <string name="action_add_money">Add £%.2f</string>
+
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
 

@@ -20,6 +20,9 @@ abstract class ProductsDao {
     @Query("SELECT * FROM ProductsData")
     abstract fun getProducts(): LiveData<InvestorProducts>
 
+    @Query("SELECT * FROM Product WHERE id = :id")
+    abstract fun getProduct(id: Long): LiveData<Product>
+
     @Query("DELETE FROM ProductsData")
     abstract fun clearProductsData(): Completable
 

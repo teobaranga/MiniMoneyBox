@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityMainBinding
 import com.example.minimoneybox.ui.account.AccountActivity
+import com.example.minimoneybox.ui.account.EXTRA_PRODUCT_ID
 import com.example.minimoneybox.ui.login.LoginActivity
 
 class MainActivity: AppCompatActivity() {
@@ -40,6 +41,7 @@ class MainActivity: AppCompatActivity() {
     private fun setupViews() {
         binding.accounts.adapter = AccountsAdapter(click = {
             val intent = Intent(this, AccountActivity::class.java)
+            intent.putExtra(EXTRA_PRODUCT_ID, it.id)
             startActivity(intent)
         })
     }
