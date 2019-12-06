@@ -6,9 +6,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.minimoneybox.repo.model.LoginInfo
+import com.example.minimoneybox.repo.model.Product
+import com.example.minimoneybox.repo.model.ProductsData
 import com.example.minimoneybox.repo.model.User
 
-@Database(entities = [LoginInfo::class, User::class], version = 1)
+@Database(entities = [LoginInfo::class, User::class, ProductsData::class, Product::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -25,4 +27,8 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract fun loginInfoDao(): LoginInfoDao
+
+    abstract fun userDao(): UserDao
+
+    abstract fun productsDao(): ProductsDao
 }

@@ -1,7 +1,8 @@
 package com.example.minimoneybox.api
 
+import android.content.Context
 import com.example.minimoneybox.BuildConfig
-import okhttp3.Interceptor
+import com.example.minimoneybox.repo.AppDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,35 +11,32 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiFactory {
 
-    /**
-     * Interceptor that adds all the required headers for the MoneyBox REST API.
-     */
-    private val authInterceptor = Interceptor { chain ->
-        val request = chain.request()
-            .newBuilder()
-            .header("AppId", BuildConfig.APP_ID)
-            .header("Content-Type", "application/json")
-            .header("appVersion", "5.10.0")
-            .header("apiVersion", "3.0.0")
-            .build()
+    private lateinit var moneyBoxApi: MoneyBoxApi
 
-        chain.proceed(request)
+    fun getMoneyBoxApi(appContext: Context): MoneyBoxApi {
+        moneyBoxApi = if (::moneyBoxApi.isInitialized) {
+            moneyBoxApi
+        } else {
+            val appDatabase = AppDatabase.get(appContext)
+
+            val okHttpClient = OkHttpClient().newBuilder()
+                .addInterceptor(AuthInterceptor(appDatabase.userDao()))
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+                })
+                .authenticator(BearerAuthenticator(lazy { moneyBoxApi }, appDatabase.loginInfoDao(), appDatabase.userDao()))
+                .build()
+
+            val retrofit = Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl("https://api-test01.moneyboxapp.com/")
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .build()
+
+
+            retrofit.create(MoneyBoxApi::class.java)
+        }
+        return moneyBoxApi
     }
-
-    private val okHttpClient = OkHttpClient().newBuilder()
-        .addInterceptor(authInterceptor)
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-        })
-        .build()
-
-    private val retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .baseUrl("https://api-test01.moneyboxapp.com/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
-        .build()
-
-
-    val moneyBoxApi: MoneyBoxApi = retrofit.create(MoneyBoxApi::class.java)
 }
