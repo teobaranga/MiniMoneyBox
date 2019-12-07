@@ -1,8 +1,10 @@
 package com.example.minimoneybox.api
 
+import com.example.minimoneybox.api.model.InvestorProducts
 import com.example.minimoneybox.api.model.LoginRequest
 import com.example.minimoneybox.api.model.LoginResponse
-import com.example.minimoneybox.api.model.InvestorProducts
+import com.example.minimoneybox.api.model.PaymentRequest
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -16,4 +18,7 @@ interface MoneyBoxApi {
 
     @GET("investorproducts")
     fun getProducts(): Single<InvestorProducts>
+
+    @POST("oneoffpayments")
+    fun addMoney(@Body paymentRequest: PaymentRequest): Completable
 }
