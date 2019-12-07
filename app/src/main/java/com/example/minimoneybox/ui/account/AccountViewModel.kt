@@ -1,22 +1,20 @@
 package com.example.minimoneybox.ui.account
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.minimoneybox.RxJavaViewModel
-import com.example.minimoneybox.api.ApiFactory
+import com.example.minimoneybox.api.MoneyBoxApi
 import com.example.minimoneybox.api.model.PaymentRequest
-import com.example.minimoneybox.repo.AppDatabase
+import com.example.minimoneybox.repo.ProductsDao
 import com.example.minimoneybox.repo.model.Product
 import com.example.minimoneybox.repo.model.ProductsData
 import io.reactivex.schedulers.Schedulers
 
-class AccountViewModel(application: Application) : RxJavaViewModel(application) {
-
-    private val moneyBoxApi = ApiFactory.getMoneyBoxApi(application.applicationContext)
-
-    private val productsDao = AppDatabase.get(application.applicationContext).productsDao()
+class AccountViewModel(
+    private val moneyBoxApi: MoneyBoxApi,
+    private val productsDao: ProductsDao
+) : RxJavaViewModel() {
 
     val product = MediatorLiveData<Product>()
 

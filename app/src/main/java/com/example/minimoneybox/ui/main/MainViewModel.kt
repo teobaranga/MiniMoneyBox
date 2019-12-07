@@ -1,18 +1,17 @@
 package com.example.minimoneybox.ui.main
 
-import android.app.Application
 import androidx.lifecycle.map
 import com.example.minimoneybox.RxJavaViewModel
-import com.example.minimoneybox.repo.AppDatabase
+import com.example.minimoneybox.repo.LoginInfoDao
+import com.example.minimoneybox.repo.ProductsDao
+import com.example.minimoneybox.repo.UserDao
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(application: Application) : RxJavaViewModel(application) {
-
-    private val userDao = AppDatabase.get(application.applicationContext).userDao()
-
-    private val productsDao = AppDatabase.get(application.applicationContext).productsDao()
-
-    private val loginInfoDao = AppDatabase.get(application.applicationContext).loginInfoDao()
+class MainViewModel(
+    private val loginInfoDao: LoginInfoDao,
+    private val userDao: UserDao,
+    private val productsDao: ProductsDao
+) : RxJavaViewModel() {
 
     val currentUser = userDao.getCurrentUser()
 

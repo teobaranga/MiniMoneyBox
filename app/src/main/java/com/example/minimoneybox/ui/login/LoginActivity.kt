@@ -5,11 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityLoginBinding
 import com.example.minimoneybox.ui.main.MainActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A login screen that offers login via email/password.
@@ -18,14 +17,13 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.lifecycleOwner = this
 
-        loginViewModel = ViewModelProvider(this, AndroidViewModelFactory.getInstance(application))[LoginViewModel::class.java]
         binding.viewModel = loginViewModel
 
         loginViewModel.signedIn.observe(this, Observer { signedIn ->

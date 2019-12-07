@@ -5,25 +5,24 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityMainBinding
 import com.example.minimoneybox.ui.account.AccountActivity
 import com.example.minimoneybox.ui.account.EXTRA_PRODUCT_ID
 import com.example.minimoneybox.ui.login.LoginActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[MainViewModel::class.java]
         binding.viewModel = mainViewModel
 
         mainViewModel.currentUser.observe(this, Observer { user ->

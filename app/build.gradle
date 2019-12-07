@@ -44,6 +44,7 @@ android {
 
 dependencies {
     def ver = [
+            koin: '2.0.1',
             moshi: '1.9.2',
             retrofit: '2.6.2',
             room: '2.2.2',
@@ -60,6 +61,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.3.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "org.koin:koin-android:${ver.koin}"
+    implementation "org.koin:koin-android-viewmodel:${ver.koin}"
     implementation "com.squareup.moshi:moshi-kotlin:${ver.moshi}"
     implementation "com.squareup.okhttp3:logging-interceptor:4.2.2"
     implementation "com.squareup.retrofit2:retrofit:${ver.retrofit}"

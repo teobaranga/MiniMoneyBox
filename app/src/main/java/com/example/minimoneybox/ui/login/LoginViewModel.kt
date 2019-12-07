@@ -1,15 +1,16 @@
 package com.example.minimoneybox.ui.login
 
-import android.app.Application
 import androidx.annotation.StringRes
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.minimoneybox.R
 import com.example.minimoneybox.RxJavaViewModel
-import com.example.minimoneybox.api.ApiFactory
+import com.example.minimoneybox.api.MoneyBoxApi
 import com.example.minimoneybox.api.model.LoginRequest
-import com.example.minimoneybox.repo.AppDatabase
+import com.example.minimoneybox.repo.LoginInfoDao
+import com.example.minimoneybox.repo.ProductsDao
+import com.example.minimoneybox.repo.UserDao
 import com.example.minimoneybox.repo.model.LoginInfo
 import com.example.minimoneybox.repo.model.Product
 import com.example.minimoneybox.repo.model.ProductsData
@@ -18,15 +19,12 @@ import io.reactivex.Completable
 import retrofit2.HttpException
 import timber.log.Timber
 
-class LoginViewModel(application: Application) : RxJavaViewModel(application) {
-
-    private val moneyBoxApi = ApiFactory.getMoneyBoxApi(application.applicationContext)
-
-    private val loginInfoDao = AppDatabase.get(application.applicationContext).loginInfoDao()
-
-    private val userDao = AppDatabase.get(application.applicationContext).userDao()
-
-    private val productsDao = AppDatabase.get(application.applicationContext).productsDao()
+class LoginViewModel(
+    private val moneyBoxApi: MoneyBoxApi,
+    private val loginInfoDao: LoginInfoDao,
+    private val userDao: UserDao,
+    private val productsDao: ProductsDao
+) : RxJavaViewModel() {
 
     val email = MediatorLiveData<String>()
 
@@ -90,7 +88,7 @@ class LoginViewModel(application: Application) : RxJavaViewModel(application) {
                 .andThen(loginInfoDao.insert(LoginInfo(email, password))
                     .onErrorResumeNext {
                         // Log but ignore errors about login info
-                        Timber.e(it,"Error while caching login info")
+                        Timber.e(it, "Error while caching login info")
                         Completable.complete()
                     })
                 // Mark the user as signed in to communicate success to the activity
@@ -98,7 +96,7 @@ class LoginViewModel(application: Application) : RxJavaViewModel(application) {
                 .subscribe({
                     Timber.d("User login success")
                 }, {
-                    val error = when(it) {
+                    val error = when (it) {
                         is HttpException -> {
                             when (it.code()) {
                                 401 -> {
