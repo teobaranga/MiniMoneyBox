@@ -16,4 +16,7 @@ interface LoginInfoDao {
 
     @Query("SELECT * FROM LOGININFO LIMIT 1")
     fun get(): LiveData<LoginInfo>
+
+    @Query("SELECT * FROM LOGININFO LIMIT 1")
+    fun getSync(): LoginInfo?
 }

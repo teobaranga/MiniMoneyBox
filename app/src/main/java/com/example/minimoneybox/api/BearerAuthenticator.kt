@@ -15,7 +15,7 @@ class BearerAuthenticator(private val api: Lazy<MoneyBoxApi>, private val loginI
 
         // Refresh the bearer token using a synchronous api request
 
-        val loginInfo = loginInfoDao.get().value
+        val loginInfo = loginInfoDao.getSync()
 
         if (loginInfo != null) {
 
