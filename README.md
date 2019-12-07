@@ -27,8 +27,12 @@ Once the sign in is successful, the user is brought to the main screen. The user
 
 On the account details screen, the user can add £10 to the selected account.
 
+It is possible that authentication token expires before the user attempts to add money to an account.
+Such a scenario is handled gracefully under the covers by refreshing the token.
+
 ## Technologies used:
  - Room for persisting login information, user information, and product data across application launches and screen transitions.
  - Retrofit + RxJava for accessing the MoneyBox API asynchronously.
  - LiveData for easy coupling of the data with the various views / screens of the app through databinding.
  - Koin for dependency injection, allowing dependencies to be easily mocked for unit tests.
+ - MockK for mocking classes in unit tests
