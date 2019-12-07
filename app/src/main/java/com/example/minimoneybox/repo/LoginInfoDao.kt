@@ -8,18 +8,21 @@ import androidx.room.Query
 import com.example.minimoneybox.repo.model.LoginInfo
 import io.reactivex.Completable
 
+/**
+ * Interface that allows CRUD operation on [LoginInfo] data.
+ */
 @Dao
-interface LoginInfoDao {
+abstract class LoginInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(loginInfo: LoginInfo): Completable
+    abstract fun insert(loginInfo: LoginInfo): Completable
 
     @Query("SELECT * FROM LOGININFO LIMIT 1")
-    fun get(): LiveData<LoginInfo>
+    abstract fun get(): LiveData<LoginInfo>
 
     @Query("SELECT * FROM LOGININFO LIMIT 1")
-    fun getSync(): LoginInfo?
+    abstract fun getSync(): LoginInfo?
 
     @Query("DELETE FROM LOGININFO")
-    fun clear(): Completable
+    abstract fun clear(): Completable
 }

@@ -13,6 +13,9 @@ object ApiFactory {
 
     private lateinit var moneyBoxApi: MoneyBoxApi
 
+    /**
+     * Retrieve the singleton instance of the MoneyBox API.
+     */
     fun getMoneyBoxApi(appContext: Context): MoneyBoxApi {
         moneyBoxApi = if (::moneyBoxApi.isInitialized) {
             moneyBoxApi
@@ -33,7 +36,6 @@ object ApiFactory {
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
-
 
             retrofit.create(MoneyBoxApi::class.java)
         }

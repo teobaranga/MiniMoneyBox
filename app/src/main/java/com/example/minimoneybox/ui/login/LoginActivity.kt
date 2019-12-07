@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = loginViewModel
 
         loginViewModel.signedIn.observe(this, Observer { signedIn ->
+            // Transition to the Main screen when the sign in process completes
             if (signedIn == true) {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

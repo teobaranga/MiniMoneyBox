@@ -8,6 +8,9 @@ import androidx.room.Query
 import com.example.minimoneybox.repo.model.User
 import io.reactivex.Completable
 
+/**
+ * Interface that allows CRUD operations on [User] data.
+ */
 @Dao
 abstract class UserDao {
 

@@ -31,10 +31,16 @@ class LoginViewModelTest : KoinTest {
         factory { LoginViewModel(get(), get(), get(), get()) }
     }
 
+    /**
+     * Allows LiveData value changes in unit tests without the need for Android SDK classes.
+     */
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
+    /**
+     * Converts RxJava async operations into sync ones.
+     */
     @Rule
     @JvmField
     var testSchedulerRule = RxImmediateSchedulerRule()

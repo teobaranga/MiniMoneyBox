@@ -39,6 +39,7 @@ class MainActivity: AppCompatActivity() {
 
     private fun setupViews() {
         binding.accounts.adapter = AccountsAdapter(click = {
+            // Launch the Account details screen and request to display the selected product
             val intent = Intent(this, AccountActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, it.id)
             startActivity(intent)

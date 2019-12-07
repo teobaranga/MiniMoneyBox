@@ -10,7 +10,7 @@ import com.example.minimoneybox.repo.model.Product
 import com.example.minimoneybox.repo.model.ProductsData
 import com.example.minimoneybox.repo.model.User
 
-@Database(entities = [LoginInfo::class, User::class, ProductsData::class, Product::class], version = 2)
+@Database(entities = [LoginInfo::class, User::class, ProductsData::class, Product::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

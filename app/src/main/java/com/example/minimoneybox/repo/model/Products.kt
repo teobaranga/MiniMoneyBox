@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
+/*
+This file holds the Room entities required for storing the Product information coming from the MoneyBox API.
+ */
 
 @Entity
 data class Product(

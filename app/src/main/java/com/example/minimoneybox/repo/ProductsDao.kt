@@ -7,6 +7,9 @@ import com.example.minimoneybox.repo.model.Product
 import com.example.minimoneybox.repo.model.ProductsData
 import io.reactivex.Completable
 
+/**
+ * Interface that allows CRUD operations on Product data from the MoneyBox API.
+ */
 @Dao
 abstract class ProductsDao {
 

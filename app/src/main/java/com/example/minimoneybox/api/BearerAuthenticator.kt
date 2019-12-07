@@ -7,8 +7,13 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
+/**
+ * Retrofit [Authenticator] that refreshes the Bearer token used to make calls to the MoneyBox API when it is
+ * expired.
+ */
 class BearerAuthenticator(
     private val moneyBoxApi: Lazy<MoneyBoxApi>,
     private val loginInfoDao: LoginInfoDao,
@@ -30,22 +35,22 @@ class BearerAuthenticator(
 
                 val bearerToken = loginResponse.session.BearerToken
 
-                println("Got new Bearer token: $bearerToken")
+                Timber.d("Got new Bearer token: $bearerToken")
 
                 userDao.updateBearer(bearerToken)
 
-                // Add new header to rejected request and retry it
+                // Update the header of the rejected request and retry it
                 return response.request.newBuilder()
                     .header("Authorization", "Bearer $bearerToken")
                     .build()
 
             } catch (e: Exception) {
-                System.err.println(e)
+                Timber.e(e, "Error encountered while refreshing the Bearer token")
                 return null
             }
         }
 
-        System.err.println("No login info")
+        Timber.w("No login info, cannot refresh Bearer token")
 
         return null
     }
