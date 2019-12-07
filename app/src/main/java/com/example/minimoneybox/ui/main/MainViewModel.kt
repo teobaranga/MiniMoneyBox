@@ -12,6 +12,8 @@ class MainViewModel(application: Application) : RxJavaViewModel(application) {
 
     private val productsDao = AppDatabase.get(application.applicationContext).productsDao()
 
+    private val loginInfoDao = AppDatabase.get(application.applicationContext).loginInfoDao()
+
     val currentUser = userDao.getCurrentUser()
 
     val userHasName = currentUser.map { it?.name?.isNotBlank() }
@@ -21,6 +23,7 @@ class MainViewModel(application: Application) : RxJavaViewModel(application) {
     fun signOut() {
         val disposable = productsDao.clear()
             .andThen(userDao.clear())
+            .andThen(loginInfoDao.clear())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 println("Sign out success")

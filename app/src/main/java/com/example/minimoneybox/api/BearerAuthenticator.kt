@@ -9,7 +9,11 @@ import okhttp3.Response
 import okhttp3.Route
 import java.util.concurrent.TimeUnit
 
-class BearerAuthenticator(private val api: Lazy<MoneyBoxApi>, private val loginInfoDao: LoginInfoDao, private val userDao: UserDao) : Authenticator {
+class BearerAuthenticator(
+    private val moneyBoxApi: Lazy<MoneyBoxApi>,
+    private val loginInfoDao: LoginInfoDao,
+    private val userDao: UserDao
+) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
 
@@ -20,7 +24,7 @@ class BearerAuthenticator(private val api: Lazy<MoneyBoxApi>, private val loginI
         if (loginInfo != null) {
 
             try {
-                val loginResponse = api.value.login(LoginRequest(loginInfo.email, loginInfo.password))
+                val loginResponse = moneyBoxApi.value.login(LoginRequest(loginInfo.email, loginInfo.password))
                     .timeout(15_000, TimeUnit.MILLISECONDS)
                     .blockingFirst()
 
@@ -34,6 +38,7 @@ class BearerAuthenticator(private val api: Lazy<MoneyBoxApi>, private val loginI
                 return response.request.newBuilder()
                     .header("Authorization", "Bearer $bearerToken")
                     .build()
+
             } catch (e: Exception) {
                 System.err.println(e)
                 return null

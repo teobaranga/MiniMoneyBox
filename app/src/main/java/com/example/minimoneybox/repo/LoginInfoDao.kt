@@ -19,4 +19,7 @@ interface LoginInfoDao {
 
     @Query("SELECT * FROM LOGININFO LIMIT 1")
     fun getSync(): LoginInfo?
+
+    @Query("DELETE FROM LOGININFO")
+    fun clear(): Completable
 }
