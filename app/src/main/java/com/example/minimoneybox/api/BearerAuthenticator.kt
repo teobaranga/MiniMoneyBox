@@ -26,7 +26,7 @@ class BearerAuthenticator(
             try {
                 val loginResponse = moneyBoxApi.value.login(LoginRequest(loginInfo.email, loginInfo.password))
                     .timeout(15_000, TimeUnit.MILLISECONDS)
-                    .blockingFirst()
+                    .blockingGet()
 
                 val bearerToken = loginResponse.session.BearerToken
 
